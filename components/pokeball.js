@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import pokeballs from './images/pokeball-links/links';
+import PokeballImage from './pokeball-image';
 import { getRandomPokemon } from "../app/lib/pokemon";
 
 export default function Pokeball() {
@@ -41,7 +42,7 @@ export default function Pokeball() {
 
     return (
         <div className='flex flex-col items-center justify-center gap-10 my-10'>
-            <Image src={pokeballImg} alt={pokeballAlt} className={`${position} duration-300`} width="300" height="300"/>
+            <PokeballImage src={pokeballImg} alt={pokeballAlt} position={position} width="300" height="300"/>
             <button className='py-4 px-2 bg-amber-400 text-amber-50 font-bold text-7xl rounded-md hover:rounded-xl hover:bg-amber-200 hover:font-8xl hover:cursor-pointer  duration-300' onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}
             onClick={handleClick}>Throw!</button>
         </div>
