@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import Image from 'next/image';
 
@@ -9,32 +9,30 @@ import PokeballImage from './pokeball-image';
 import ThrowButton from './throw-button';
 import { getRandomPokemon } from "../app/lib/pokemon";
 
+const getRandomNumber = () => {
+        return Math.floor(Math.random() * 1025) + 1
+}
+
 export default function Pokeball() {
     const [pokeballImg, setPokeballImg] = useState(pokeballs[0].src);
     const [pokeballAlt, setPokeballAlt] = useState(pokeballs[0].alt);
 
     const [pokeNum, setPokeNum] = useState(null);
-
     const [position, setPosition] = useState("");
 
-    const getRandomNumber = () => {
-        return Math.floor(Math.random() * 1025) + 1
-    }
-
-    const handleMouseOver = () => {
+    // handle functions for throw button
+    const handleMouseOver = useCallback(() => {
         setPosition("-rotate-20");
-    }
-
-    const handleMouseLeave = () => {
+    }, []);
+    const handleMouseLeave = useCallback(()  => {
         setPosition("");
-    }
-
-    const handleClick = () => {
+    })
+    const handleClick = useCallback(() => {
         setPokeballImg(pokeballs[1].src);
         setPokeballAlt(pokeballs[1].alt);
-        setPokeNum(getRandomNumber());
-        console.log(getRandomNumber())
-    }
+        const randomNum = getRandomNumber();
+        setPokeNum(randomNum);
+    })
 
     useEffect(() => {
         if (pokeNum)
