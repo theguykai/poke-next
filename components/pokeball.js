@@ -19,6 +19,7 @@ export default function Pokeball() {
 
     const [pokeNum, setPokeNum] = useState(null);
     const [position, setPosition] = useState("");
+    const [pokemon, setPokemon] = useState(null);
 
     // handle functions for throw button
     const handleMouseOver = useCallback(() => {
@@ -35,8 +36,14 @@ export default function Pokeball() {
     })
 
     useEffect(() => {
-        if (pokeNum)
-        getRandomPokemon(pokeNum);
+        if (pokeNum) {
+            const fetchPokemon = async () => {
+                const newPokemon = await getRandomPokemon(pokeNum);
+                setPokemon(newPokemon);
+            } 
+        
+        fetchPokemon();
+        }
     }, [pokeNum])
 
     return (
@@ -44,6 +51,11 @@ export default function Pokeball() {
             <PokeballImage src={pokeballImg} alt={pokeballAlt} position={position} width="300" height="300"/>
             <ThrowButton onClick={handleClick} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}
             />
+            {pokemon && <div className='flex flex-col items-center gap-5'>
+                <p>GO {pokemon.name}!</p>
+                <Image src={pokemon.sprites.front_default} alt="y" width="200" height="200"/>
+            </div>
+            }
         </div>
     )
 }

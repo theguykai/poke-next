@@ -7,7 +7,6 @@ export async function getRandomPokemon(num) {
         }
 
         const pokemon = await response.json();
-        console.log(pokemon.name);
         return pokemon;
     }
     catch (error) {
