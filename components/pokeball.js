@@ -23,6 +23,8 @@ export default function Pokeball() {
     const [duration, setDuration] = useState("duration-300");
     const [pokemon, setPokemon] = useState(null);
     const [ballThrown, setBallThrown] = useState(false);
+    const [spinningScreen, setSpinningScreen] = useState(false);
+    const [pokedexScreen, setPokedexScreen] = useState(false);
 
     // handle functions for throw button
     const handleMouseOver = useCallback(() => {
@@ -32,12 +34,24 @@ export default function Pokeball() {
         setPosition("");
     })
     const handleClick = useCallback(() => {
-        // setPokeballImg(pokeballs[1].src);
-        // setPokeballAlt(pokeballs[1].alt);
         setBallThrown(true);
-        setThrowAnimation("-rotate-20 -translate-y-[100vh] translate-x-[100vw]")
+        setThrowAnimation("-translate-y-[100vh] translate-x-[100vw] animate-spin")
         const randomNum = getRandomNumber();
         setPokeNum(randomNum);
+
+        setTimeout(() => {
+            setSpinningScreen(true);
+            setThrowAnimation("-translate-x-[100vw] -translate-y-[100vh] animate-spin linear 1s infinite");
+
+            setTimeout(() => {
+                setThrowAnimation("animate-spin linear 1s infinite");
+                setTimeout(() => {
+                    setDuration("duration-2000");
+                    setThrowAnimation("animate-spin linear 1s infinite brightness-10 opacity-10 ");
+                }, 500)
+            }, 300)
+            
+        }, 300)
     })
 
     useEffect(() => {
@@ -54,14 +68,18 @@ export default function Pokeball() {
 
     return (
         <div className='flex flex-col items-center justify-center gap-10 my-10'>
+            {/* first screen, conditional render */}
             <PokeballImage src={pokeballImg} alt={pokeballAlt} position={position} duration={duration} throwAnimation={throwAnimation} width="300" height="300"/>
             {!ballThrown && <ThrowButton onClick={handleClick} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}
             />}
-            {pokemon && <div className='flex flex-col items-center gap-5'>
+            {/* second screen, pokeball Pokeball PokeballSpinning */}
+
+            {/* third screen, pokedex */}
+            {/* {pokemon && <div className='flex flex-col items-center gap-5'>
                 <p className='text-8xl'>GO {pokemon.name.toUpperCase()}!</p>
                 <Image src={pokemon.sprites.front_default} alt="y" width="200" height="200"/>
             </div>
-            }
+            } */}
         </div>
     )
 }
