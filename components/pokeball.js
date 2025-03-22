@@ -19,7 +19,10 @@ export default function Pokeball() {
 
     const [pokeNum, setPokeNum] = useState(null);
     const [position, setPosition] = useState("");
+    const [throwAnimation, setThrowAnimation] = useState("");
+    const [duration, setDuration] = useState("duration-300");
     const [pokemon, setPokemon] = useState(null);
+    const [ballThrown, setBallThrown] = useState(false);
 
     // handle functions for throw button
     const handleMouseOver = useCallback(() => {
@@ -29,8 +32,10 @@ export default function Pokeball() {
         setPosition("");
     })
     const handleClick = useCallback(() => {
-        setPokeballImg(pokeballs[1].src);
-        setPokeballAlt(pokeballs[1].alt);
+        // setPokeballImg(pokeballs[1].src);
+        // setPokeballAlt(pokeballs[1].alt);
+        setBallThrown(true);
+        setThrowAnimation("-rotate-20 -translate-y-[100vh] translate-x-[100vw]")
         const randomNum = getRandomNumber();
         setPokeNum(randomNum);
     })
@@ -40,6 +45,7 @@ export default function Pokeball() {
             const fetchPokemon = async () => {
                 const newPokemon = await getRandomPokemon(pokeNum);
                 setPokemon(newPokemon);
+                console.log(newPokemon);
             } 
         
         fetchPokemon();
@@ -48,11 +54,11 @@ export default function Pokeball() {
 
     return (
         <div className='flex flex-col items-center justify-center gap-10 my-10'>
-            <PokeballImage src={pokeballImg} alt={pokeballAlt} position={position} width="300" height="300"/>
-            <ThrowButton onClick={handleClick} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}
-            />
+            <PokeballImage src={pokeballImg} alt={pokeballAlt} position={position} duration={duration} throwAnimation={throwAnimation} width="300" height="300"/>
+            {!ballThrown && <ThrowButton onClick={handleClick} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}
+            />}
             {pokemon && <div className='flex flex-col items-center gap-5'>
-                <p>GO {pokemon.name}!</p>
+                <p className='text-8xl'>GO {pokemon.name.toUpperCase()}!</p>
                 <Image src={pokemon.sprites.front_default} alt="y" width="200" height="200"/>
             </div>
             }
