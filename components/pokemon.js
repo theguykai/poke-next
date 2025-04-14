@@ -5,7 +5,7 @@ export default function EachPokemonPage({ slug, name, image }) {
     return (
         <div>
             <p>{name}</p>
-            <img src={image}/>
+            <Image src={image}/>
         </div>
     )
 }
