@@ -8,6 +8,8 @@ import pokeballs from './images/pokeball-links/links';
 import PokeballImage from './pokeball-image';
 import ThrowButton from './throw-button';
 import { getRandomPokemon } from "../app/lib/pokemon";
+import { set } from 'mongoose';
+import Pokedex from './pokedex';
 
 const getRandomNumber = () => {
         return Math.floor(Math.random() * 1025) + 1
@@ -18,6 +20,7 @@ export default function Pokeball() {
     const [pokeballAlt, setPokeballAlt] = useState(pokeballs[0].alt);
 
     const [pokeNum, setPokeNum] = useState(null);
+    const [pokedexNum, setPokedexNum] = useState(null);
     const [position, setPosition] = useState("");
     const [throwAnimation, setThrowAnimation] = useState("");
     const [duration, setDuration] = useState("duration-300");
@@ -66,12 +69,25 @@ export default function Pokeball() {
         }, 300)
     })
 
+    const handleThrowAgain = useCallback(() => {
+        setBallThrown(false);
+        setSpinningScreen(false);
+        setShowName(false);
+        setShowPokedex(false);
+        setShowPokemon(false);
+        setDuration("duration-300");
+        setThrowAnimation("");
+        setPokeNum(null);
+    }
+    , [])
+
     useEffect(() => {
         if (pokeNum) {
             const fetchPokemon = async () => {
                 const newPokemon = await getRandomPokemon(pokeNum);
-                setPokemon(newPokemon);
-                console.log(newPokemon);
+                setPokemon(newPokemon.pokemon);
+                setPokedexNum(newPokemon.pokedexData);
+                console.log(newPokemon.pokedexData.pokedex_numbers)
             } 
         
         fetchPokemon();
@@ -82,42 +98,16 @@ export default function Pokeball() {
         <div>
         {showPokedex
         ?
-        <div className='bg-blue-400 rounded-md shadow-blue-400 shadow-md grid place-items-center gap-10 my-10'>
-            <table>
-                <thead className='bg-blue-500 text-white'>
-                    <tr>
-                        <th>Pokedex #{pokemon.order}</th>
-                        <th>
-                            <Image src={pokemon.sprites.front_default} alt="y" width="200" height="200"/>
-                        </th>
-                        <th className='py-2 px-4'>Type</th>
-                        <th className='py-2 px-4'>Abilities</th>
-                    </tr>
-                </thead>
-                <tbody className='bg-blue-200'>
-                    <tr className='border-b-2 border-blue-500'>
-                        <td className='py-2 px-4'>{pokemon.types.map((type, index) => {
-                            return <p key={index}>{type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}</p>
-                        })}</td>
-                        <td className='py-2 px-4'>{pokemon.abilities.map((ability, index) => {
-                            return <p key={index}>{ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1)}</p>
-                        })}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h1 className='text-8xl'>Pokemon: {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
-            
-            <div className='flex gap-5'>
-                <p className='text-2xl'>Height: {pokemon.height}</p>
-                <p className='text-2xl'>Weight: {pokemon.weight}</p>
-                <p className='text-2xl'>Base Experience: {pokemon.base_experience}</p>
-            </div>
-        </div>
+        <Pokedex 
+            pokemon={pokemon}
+            pokedexNum={pokedexNum}
+            onThrowAgain={handleThrowAgain} 
+        />
         :
         <div className='flex flex-col items-center justify-center gap-10 my-10'>
             {/* first screen, conditional render */}
             {showName && pokemon && <h1 className={`text-8xl transition-all duration-700 ease-out ${nameAnimation}`}>GO {pokemon.name.toUpperCase()}!</h1>}
-            {showPokemon ? <Image src={pokemon.sprites.front_default} alt="y" width="200" height="200"/> : <PokeballImage src={pokeballImg} alt={pokeballAlt} position={position} duration={duration} throwAnimation={throwAnimation} width="300" height="300"/>}
+            {showPokemon ? <Image src={pokemon.sprites.other["official-artwork"].front_default} alt="y" width="200" height="200"/> : <PokeballImage src={pokeballImg} alt={pokeballAlt} position={position} duration={duration} throwAnimation={throwAnimation} width="300" height="300"/>}
             {!ballThrown && <ThrowButton onClick={handleClick} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}
             />}
             {/* second screen, pokeball Pokeball PokeballSpinning */}

@@ -7,7 +7,10 @@ export async function getRandomPokemon(num) {
         }
 
         const pokemon = await response.json();
-        return pokemon;
+        const pokedex = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${num}/`);
+        const pokedexData = await pokedex.json();
+
+        return { pokemon, pokedexData };
     }
     catch (error) {
         console.error(error);
