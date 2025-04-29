@@ -9,6 +9,7 @@ import PokeballImage from './pokeball-image';
 import ThrowButton from './throw-button';
 import { getRandomPokemon } from "../app/lib/pokemon";
 import { set } from 'mongoose';
+import { savePokemonToCollection } from '../app/lib/pokemonCollection';
 import Pokedex from './pokedex';
 
 const getRandomNumber = () => {
@@ -16,7 +17,7 @@ const getRandomNumber = () => {
 }
 
 export default function Pokeball() {
-    const [pokeballImg, setPokeballImg] = useState(pokeballs[0].src);
+    const [pokeballImg, setPokeballImg] = useState("/images/pokeball.webp");
     const [pokeballAlt, setPokeballAlt] = useState(pokeballs[0].alt);
 
     const [pokeNum, setPokeNum] = useState(null);
@@ -87,6 +88,7 @@ export default function Pokeball() {
                 const newPokemon = await getRandomPokemon(pokeNum);
                 setPokemon(newPokemon.pokemon);
                 setPokedexNum(newPokemon.pokedexData);
+                savePokemonToCollection(newPokemon.pokemon);
                 console.log(newPokemon.pokedexData.pokedex_numbers)
             } 
         
@@ -106,7 +108,7 @@ export default function Pokeball() {
         :
         <div className='flex flex-col items-center justify-center gap-10 my-10'>
             {/* first screen, conditional render */}
-            {showName && pokemon && <h1 className={`text-8xl transition-all duration-700 ease-out ${nameAnimation}`}>GO {pokemon.name.toUpperCase()}!</h1>}
+            {showName && pokemon && <h1 className={`text-3xl text-white transition-all duration-700 ease-out ${nameAnimation}`}>GO {pokemon.name.toUpperCase()}!</h1>}
             {showPokemon ? <Image src={pokemon.sprites.other["official-artwork"].front_default} alt="y" width="200" height="200"/> : <PokeballImage src={pokeballImg} alt={pokeballAlt} position={position} duration={duration} throwAnimation={throwAnimation} width="300" height="300"/>}
             {!ballThrown && <ThrowButton onClick={handleClick} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}
             />}
