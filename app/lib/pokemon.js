@@ -19,14 +19,15 @@ export async function getRandomPokemon(num) {
 
 export async function getAllPokemon() {
     try {
-        const limitFetch = await fetch(`https://pokeapi.co/api/v2/pokemon`)
-        if (!limitFetch.ok) {
-            throw new Error('Failed to fetch Pokémon count');
-        }
-        const limitData = await limitFetch.json()
-        const limit = limitData.count;
-        console.log(limit)
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
+        // This currently logs pokemon id count to 1025 and then jumps to 10000
+        // const limitFetch = await fetch(`https://pokeapi.co/api/v2/pokemon`)
+        // if (!limitFetch.ok) {
+        //     throw new Error('Failed to fetch Pokémon count');
+        // }
+        // const limitData = await limitFetch.json()
+        // const limit = limitData.count;
+        // console.log(limit)
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1025`);
 
         if (!response.ok) {
             throw new Error('Data could not be found');
