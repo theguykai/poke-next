@@ -15,5 +15,27 @@ export async function getRandomPokemon(num) {
     catch (error) {
         console.error(error);
     }
+}
 
+export async function getAllPokemon() {
+    try {
+        const limitFetch = await fetch(`https://pokeapi.co/api/v2/pokemon`)
+        if (!limitFetch.ok) {
+            throw new Error('Failed to fetch Pokémon count');
+        }
+        const limitData = await limitFetch.json()
+        const limit = limitData.count;
+        console.log(limit)
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
+
+        if (!response.ok) {
+            throw new Error('Data could not be found');
+        }
+
+        const data = await response.json();
+        return data.results;
+    }
+    catch (error) {
+        console.error(error);
+    }
 }

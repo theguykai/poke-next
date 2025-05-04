@@ -1,6 +1,5 @@
-import Image from "next/image"
-
-import pokeballs from './images/pokeball-links/links';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Pokedex({ pokemon, pokedexNum, onThrowAgain }) { return (
     <div className="bg-blue-400 flex items-center justify-evenly flex-col gap-5 rounded-xl p-8">
@@ -27,6 +26,7 @@ export default function Pokedex({ pokemon, pokedexNum, onThrowAgain }) { return 
         <button onClick={onThrowAgain}>
             <Image src="/images/pokeball.webp" className="rounded-full duration-200 hover:-rotate-12" width="95" height="95" alt="" />
         </button>
+        <Link href="/pokemonCollection" className="p-2 bg-blue-400 text-4xl rounded-md text-white text-outline duration-200 hover:rounded-lg hover:bg-blue-300">Collection</Link>
     </div>
     // <div className='bg-blue-400 rounded-md shadow-blue-400 shadow-md grid place-items-center gap-10 my-10'>
     //         <table>
