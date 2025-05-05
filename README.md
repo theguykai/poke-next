@@ -1,11 +1,43 @@
-# A Pokemon Minigame Project
+# 🎯 Pokémon Catcher App
 
-This project is currently still underway.
+A fun and interactive web app where you can **throw Pokéballs to catch random Pokémon**, view their types, and build your very own collection — all powered by [PokéAPI v2](https://pokeapi.co/). This is a personal project built to demonstrate frontend development skills using **Next.js** and **Tailwind CSS**.
 
-I am using the NextJS framework to design this project as a way to learn and deploy an app for fun with NextJS.
+## 🚀 Features
 
-The project will be that you throw a pokeball, and it will spawn a random pokemon from the publicly accessible API at [HERE](https://pokeapi.co/)
+- 🎲 **Catch Random Pokémon**: Click the Pokéball to fetch a random Pokémon from the PokéAPI.
+- 📸 **Pokémon Preview**: View the Pokémon's sprite and its type(s) when caught.
+- 📦 **Local Collection**: Your captured Pokémon are saved in `localStorage` so your collection persists between visits.
+- 📋 **Collection Tracker**: 
+  - Colored Pokémon = caught.
+  - Greyed-out Pokémon = not yet caught.
+  - Count of total Pokémon caught displayed.
+  
+## 🛠 Tech Stack
 
-The page will then display the pokemon with its name, picture and other stats in a pokedex like display.
+- **Next.js** – React framework for fast and SEO-friendly rendering.
+- **Tailwind CSS** – Utility-first CSS framework for responsive styling.
+- **PokéAPI v2** – Public RESTful API for accessing Pokémon data.
+- **LocalStorage** – Browser-based storage for maintaining collection data.
 
-I will also add a section with localstorage? (Haven't thought about this idea completely, as to whether or not I want to add authentication) that will allow users to see all the pokemon they've spawned.
+## 📸 Screenshots
+
+### 🎯 Catching a Pokémon
+![Catching a Pokémon](./public/screenshots/pokedex.jpg)
+
+### 📦 Viewing Your Collection
+![Your Collection](./public/screenshots/collection.png)
+
+## 📦 Installation & Development
+
+```bash
+# Clone the repo
+git clone https://github.com/theguykai/poke-next.git
+cd poke-next
+
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
+
+# Visit http://localhost:3000 in your browser
