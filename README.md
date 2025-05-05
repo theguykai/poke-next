@@ -22,10 +22,10 @@ A fun and interactive web app where you can **throw Pokéballs to catch random P
 ## 📸 Screenshots
 
 ### 🎯 Catching a Pokémon
-![Catching a Pokémon](./public/screenshots/pokedex.jpg)
+![Catching a Pokémon](screenshots/pokedex.jpg)
 
 ### 📦 Viewing Your Collection
-![Your Collection](./public/screenshots/collection.png)
+![Your Collection](screenshots/collection.jpg)
 
 ## 🚀 Deployment
 
