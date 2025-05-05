@@ -110,38 +110,56 @@ export default function PokemonCollectionPage() {
 
     return (
         <div className="bg-gradient-to-br from-blue-500 via-cyan-400 to-red-400 min-h-screen relative overflow-hidden">
-            {/* Tech pattern overlay */}
             <div className="absolute inset-0 opacity-10 bg-[url('/images/pokeball.webp')] bg-repeat bg-[length:50px_50px]"></div>
             
-            {/* Grid lines for tech feel */}
             <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
             
-            <div className="relative flex flex-col items-center w-full p-4">
-                <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                    <Link href="/" className="flex items-center gap-1 sm:gap-2 bg-yellow-400 shadow-gray-800 shadow-md p-1 sm:p-2 rounded-full hover:bg-yellow-300 hover:shadow-yellow-600 transition-all duration-300">
-                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10 animate-pulse" />
-                    <p className="text-base sm:text-xl md:text-2xl font-bold text-gray-800">Throw!</p>
-                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10 animate-pulse" />
-                    </Link>
-                </div>
-                
-                <div className="text-center">
-                    <h1 className="text-3xl sm:text-4xl text-center font-extrabold mb-2 text-white drop-shadow-lg">
-                        Pokemon Collection
-                    </h1>
-                    <div className="bg-blue-600 bg-opacity-70 px-4 py-2 rounded-full inline-flex items-center shadow-lg">
-                        <p className="text-white font-bold">
-                            Pokemon Collected: <span className="text-yellow-300">{collection.length}</span> / <span className="text-yellow-300">1025</span>
-                        </p>
+            <div className="relative w-full p-4">
+                {/* Container with different layouts for mobile vs medium+ screens */}
+                <div className="relative md:h-40">
+                    {/* For mobile screens: buttons at top, title and counter below */}
+                    <div className="flex md:hidden justify-between w-full mb-4">
+                        <Link href="/" className="flex items-center gap-1 bg-yellow-400 shadow-gray-800 shadow-md p-1 rounded-full hover:bg-yellow-300 hover:shadow-yellow-600 transition-all duration-300">
+                            <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 animate-pulse" />
+                            <p className="text-base font-bold text-gray-800">Throw!</p>
+                            <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 animate-pulse" />
+                        </Link>
+                        
+                        <button onClick={handleClearCollection} className="flex items-center gap-1 bg-red-500 shadow-gray-800 shadow-md p-1 rounded-full hover:bg-red-400 hover:shadow-red-700 transition-all duration-300">
+                            <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 animate-pulse" />
+                            <p className="text-base font-bold text-white">Clear Collection</p>
+                            <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 animate-pulse" />
+                        </button>
                     </div>
-                </div>
-
-                <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                    <button onClick={handleClearCollection} className="flex items-center gap-1 sm:gap-2 bg-red-500 shadow-gray-800 shadow-md p-1 sm:p-2 rounded-full hover:bg-red-400 hover:shadow-red-700 transition-all duration-300">
-                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10 animate-pulse" />
-                    <p className="text-base sm:text-xl md:text-2xl font-bold text-white">Clear Collection</p>
-                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10 animate-pulse" />
-                    </button>
+                    
+                    {/* For all screens: title and counter */}
+                    <div className="text-center md:absolute md:top-0 md:left-1/2 md:transform md:-translate-x-1/2">
+                        <h1 className="text-3xl sm:text-4xl text-center font-extrabold mb-2 text-white drop-shadow-lg">
+                            Pokemon Collection
+                        </h1>
+                        <div className="bg-blue-600 bg-opacity-70 px-4 py-2 rounded-full inline-flex items-center shadow-lg">
+                            <p className="text-white font-bold">
+                                Pokemon Collected: <span className="text-yellow-300">{collection.length}</span> / <span className="text-yellow-300">1025</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    {/* For medium+ screens: buttons on left and right */}
+                    <div className="hidden md:block md:absolute md:left-0 md:top-1/2 md:transform md:-translate-y-1/2">
+                        <Link href="/" className="flex items-center gap-2 bg-yellow-400 shadow-gray-800 shadow-md p-2 rounded-full hover:bg-yellow-300 hover:shadow-yellow-600 transition-all duration-300">
+                            <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-10 h-10 animate-pulse" />
+                            <p className="text-xl md:text-2xl font-bold text-gray-800">Throw!</p>
+                            <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-10 h-10 animate-pulse" />
+                        </Link>
+                    </div>
+                    
+                    <div className="hidden md:block md:absolute md:right-0 md:top-1/2 md:transform md:-translate-y-1/2">
+                        <button onClick={handleClearCollection} className="flex items-center gap-2 bg-red-500 shadow-gray-800 shadow-md p-2 rounded-full hover:bg-red-400 hover:shadow-red-700 transition-all duration-300">
+                            <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-10 h-10 animate-pulse" />
+                            <p className="text-xl md:text-2xl font-bold text-white">Clear Collection</p>
+                            <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-10 h-10 animate-pulse" />
+                        </button>
+                    </div>
                 </div>
             </div>
             
