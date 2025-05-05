@@ -8,7 +8,6 @@ import Link from 'next/link';
 import PokeballImage from './pokeball-image';
 import ThrowButton from './throw-button';
 import { getRandomPokemon } from "../app/lib/pokemon";
-import { set } from 'mongoose';
 import { savePokemonToCollection } from '../app/lib/pokemonCollection';
 import Pokedex from './pokedex';
 
