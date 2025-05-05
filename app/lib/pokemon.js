@@ -14,6 +14,7 @@ export async function getRandomPokemon(num) {
     }
     catch (error) {
         console.error(error);
+        return null;
     }
 }
 
@@ -38,5 +39,6 @@ export async function getAllPokemon() {
     }
     catch (error) {
         console.error(error);
+        return [];
     }
 }

@@ -53,18 +53,12 @@ export default function Pokeball() {
                 setThrowAnimation("animate-spin linear 1s infinite");
                 setTimeout(() => {
                     setDuration("duration-1000");
-                    setThrowAnimation("animate-spin linear 2s infinite opacity-0 duration-700");
+                    setThrowAnimation("animate-spin linear 2s infinite pixelate-extreme grayscale duration-1000");
                     setTimeout(() => {
-                        setNameAnimation("opacity-100 translate-y-0 transition-all duration-300 ease-out")
-                        setShowName(true);
-                        setShowPokemon(true);
-                        setTimeout(() => {
-                            setTimeout(() => {
-                                setShowPokedex(true);
-                            }, 1500)
-                            }, 250)
-                        }, 500)
-                }, 500)
+                        setShowPokedex(true);
+                        
+                        }, 900)
+                }, 1000)
             }, 300)
         }, 300)
     })
@@ -103,23 +97,23 @@ export default function Pokeball() {
         <Pokedex 
             pokemon={pokemon}
             pokedexNum={pokedexNum}
-            onThrowAgain={handleThrowAgain} 
+            onThrowAgain={handleThrowAgain}
         />
         :
         <div className='flex flex-col items-center justify-center gap-10 my-10'>
             {/* first screen, conditional render */}
-            {showName && pokemon && <h1 className={`text-3xl text-white transition-all duration-700 ease-out ${nameAnimation}`}>GO {pokemon.name.toUpperCase()}!</h1>}
+            {/* {showName && pokemon && <h1 className={`text-3xl text-white transition-all duration-700 ease-out ${nameAnimation}`}>GO {pokemon.name.toUpperCase()}!</h1>} */}
             {showPokemon 
             ? 
             <Image src={pokemon.sprites.other["official-artwork"].front_default} alt="y" width="200" height="200"/> 
             : 
-            <PokeballImage src={pokeballImg} alt={"pokeball"} position={position} duration={duration} throwAnimation={throwAnimation} width="300" height="300"/>
+            <PokeballImage src={pokeballImg} alt={"pokeball"} position={position} duration={duration} throwAnimation={throwAnimation} width="290" height="290"/>
             }
             {!ballThrown && 
             <>
             <ThrowButton onClick={handleClick} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}
             />
-            <Link href="/pokemonCollection" className="p-2 bg-blue-400 text-4xl rounded-md text-white text-outline duration-200 hover:rounded-lg hover:bg-blue-300">Collection</Link>
+            <Link href="/pokemonCollection" className="p-2 bg-blue-400 text-2xl rounded-md text-white text-outline duration-200 hover:rounded-lg hover:bg-blue-300">COLLECTION</Link>
             </>
             }
         </div>

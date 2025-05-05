@@ -7,3 +7,33 @@
     -1px 1px 0 #000,
     1px 1px 0 #000;
 }
+
+.pixelate {
+  image-rendering: pixelated;
+  filter: blur(1px) contrast(1.2);
+  transform-origin: center;
+  transition: all 1s ease-out;
+}
+
+.pixelate-heavy {
+  image-rendering: pixelated;
+  filter: blur(2px) contrast(1.5) brightness(1.2);
+  transform-origin: center;
+  transition: all 0.3s ease-out;
+}
+
+.pixelate-extreme {
+  image-rendering: pixelated;
+  filter: blur(5px) brightness(500%);
+  transform-origin: center;
+  transition: all 1s revert;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
