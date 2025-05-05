@@ -125,9 +125,16 @@ export default function PokemonCollectionPage() {
                     </Link>
                 </div>
                 
-                <h1 className="text-3xl sm:text-4xl text-center font-extrabold my-4 text-white drop-shadow-lg">
-                    Pokemon Collection
-                </h1>
+                <div className="text-center">
+                    <h1 className="text-3xl sm:text-4xl text-center font-extrabold mb-2 text-white drop-shadow-lg">
+                        Pokemon Collection
+                    </h1>
+                    <div className="bg-blue-600 bg-opacity-70 px-4 py-2 rounded-full inline-flex items-center shadow-lg">
+                        <p className="text-white font-bold">
+                            Pokemon Collected: <span className="text-yellow-300">{collection.length}</span> / <span className="text-yellow-300">1025</span>
+                        </p>
+                    </div>
+                </div>
 
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
                     <button onClick={handleClearCollection} className="flex items-center gap-1 sm:gap-2 bg-red-500 shadow-gray-800 shadow-md p-1 sm:p-2 rounded-full hover:bg-red-400 hover:shadow-red-700 transition-all duration-300">
