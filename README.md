@@ -27,6 +27,12 @@ A fun and interactive web app where you can **throw Pokéballs to catch random P
 ### 📦 Viewing Your Collection
 ![Your Collection](./public/screenshots/collection.png)
 
+## 🚀 Deployment
+
+This app is deployed with Vercel for seamless Next.js hosting.
+
+**Live Demo:** 
+
 ## 📦 Installation & Development
 
 ```bash
@@ -41,3 +47,12 @@ npm install
 npm run dev
 
 # Visit http://localhost:3000 in your browser
+```
+
+## 🎯 Purpose
+
+This project was built for my **web development portfolio** to showcase my skills in React/Next.js, modern styling with Tailwind CSS, and basic API integration.
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
