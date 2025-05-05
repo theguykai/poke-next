@@ -160,7 +160,7 @@ export default function PokemonCollectionPage() {
                                 height="60" 
                                 width="60" 
                                 alt="Loading" 
-                                className="animate-spin"
+                                className="animate-spin rounded-full"
                             />
                         </div>
                         <h2 className="text-xl mb-2 font-bold text-gray-800">Loading Collection...</h2>
