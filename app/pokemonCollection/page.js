@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getAllPokemon } from "../lib/pokemon";
-import { getCollection } from "../lib/pokemonCollection";
+import { getCollection, clearCollection } from "../lib/pokemonCollection";
 
 export default function PokemonCollectionPage() {
     const [allPokemon, setAllPokemon] = useState([]);
@@ -79,6 +79,19 @@ export default function PokemonCollectionPage() {
         fetchAllPokemon();
     }, []);
 
+    const handleClearCollection = () => {
+        const confirmed = confirm("Are you sure you want to clear your collection? This action cannot be undone.");
+        if (confirmed) {
+            const success = clearCollection();
+            if (success) {
+                setCollection([]);
+                alert("Collection cleared successfully!");
+            } else {
+                alert("Failed to clear collection. Please try again.");
+            }
+        }
+    }
+
     const isPokemonCollected = (pokemonId) => {
         return collection.some(p => p.id === pokemonId);
     };
@@ -96,17 +109,33 @@ export default function PokemonCollectionPage() {
     };
 
     return (
-        <div className="bg-gradient-to-b from-indigo-300 to-purple-300 min-h-screen">
+        <div className="bg-gradient-to-br from-blue-500 via-cyan-400 to-red-400 min-h-screen relative overflow-hidden">
+            {/* Tech pattern overlay */}
+            <div className="absolute inset-0 opacity-10 bg-[url('/images/pokeball.webp')] bg-repeat bg-[length:50px_50px]"></div>
+            
+            {/* Grid lines for tech feel */}
+            <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+            
             <div className="relative flex flex-col items-center w-full p-4">
                 <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                    <Link href="/" className="flex items-center gap-1 sm:gap-2 shadow-gray-500 shadow-md p-1 sm:p-2 rounded-full hover:shadow-yellow-600 duration-150">
-                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10" />
-                    <p className="text-base sm:text-xl md:text-2xl">Throw!</p>
-                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10" />
+                    <Link href="/" className="flex items-center gap-1 sm:gap-2 bg-yellow-400 shadow-gray-800 shadow-md p-1 sm:p-2 rounded-full hover:bg-yellow-300 hover:shadow-yellow-600 transition-all duration-300">
+                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10 animate-pulse" />
+                    <p className="text-base sm:text-xl md:text-2xl font-bold text-gray-800">Throw!</p>
+                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10 animate-pulse" />
                     </Link>
                 </div>
                 
-                <h1 className="text-2xl text-center font-bold my-4">Pokemon Collection</h1>
+                <h1 className="text-3xl sm:text-4xl text-center font-extrabold my-4 text-white drop-shadow-lg">
+                    Pokemon Collection
+                </h1>
+
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                    <button onClick={handleClearCollection} className="flex items-center gap-1 sm:gap-2 bg-red-500 shadow-gray-800 shadow-md p-1 sm:p-2 rounded-full hover:bg-red-400 hover:shadow-red-700 transition-all duration-300">
+                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10 animate-pulse" />
+                    <p className="text-base sm:text-xl md:text-2xl font-bold text-white">Clear Collection</p>
+                    <Image src="/images/pokeball.webp" height="40" width="40" alt="" className="rounded-full w-8 h-8 sm:w-10 sm:h-10 animate-pulse" />
+                    </button>
+                </div>
             </div>
             
             {error && (
@@ -117,10 +146,19 @@ export default function PokemonCollectionPage() {
             
             {loading ? (
                 <div className="flex justify-center items-center h-64">
-                    <div className="text-center">
-                        <h2 className="text-xl mb-2">Loading Collection...</h2>
+                    <div className="text-center bg-white bg-opacity-80 p-6 rounded-xl shadow-lg">
+                        <div className="flex justify-center mb-4">
+                            <Image 
+                                src="/images/pokeball.webp" 
+                                height="60" 
+                                width="60" 
+                                alt="Loading" 
+                                className="animate-spin"
+                            />
+                        </div>
+                        <h2 className="text-xl mb-2 font-bold text-gray-800">Loading Collection...</h2>
                         {allPokemon.length > 0 && (
-                            <p>Loaded {allPokemon.length} Pokemon so far</p>
+                            <p className="text-blue-600 font-semibold">Loaded {allPokemon.length} Pokemon so far</p>
                         )}
                     </div>
                 </div>
@@ -128,22 +166,29 @@ export default function PokemonCollectionPage() {
                 <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4">
                     {allPokemon.length > 0 ? (
                         allPokemon.map((pokemon) => (
-                            <li key={pokemon.id} className={`p-4 rounded-lg shadow-md shadow-blue-500 flex items-center flex-col ${isPokemonCollected(pokemon.id) ? "bg-white" : "bg-gray-300 grayscale"}`}>
+                            <li key={pokemon.id} 
+                                className={`p-4 rounded-lg flex items-center flex-col transition-all duration-300 transform hover:scale-105 ${
+                                    isPokemonCollected(pokemon.id) 
+                                    ? "bg-gradient-to-br from-white to-yellow-100 shadow-lg shadow-yellow-500/50" 
+                                    : "bg-gray-300 grayscale shadow-md shadow-gray-500/50"
+                                }`}
+                            >
                                 <Image 
                                     src={getPokemonImageSrc(pokemon)} 
                                     alt={pokemon.name} 
                                     height="100" 
                                     width="100"
                                     priority={pokemon.id <= 12}
+                                    className={isPokemonCollected(pokemon.id) ? "drop-shadow-md" : ""}
                                 />
-                                <p className="text-xl font-semibold">
-                                    #{pokemon.id} {pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}
+                                <p className="text-xl font-semibold mt-2">
+                                    <span className="text-blue-600 font-mono">#{pokemon.id.toString().padStart(3, '0')}</span> {pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}
                                 </p>
                             </li>
                         ))
                     ) : (
-                        <div className="col-span-full text-center py-8">
-                            <p className="text-xl">No Pokemon found. Check your API connection.</p>
+                        <div className="col-span-full text-center py-8 bg-white bg-opacity-80 rounded-xl shadow-lg">
+                            <p className="text-xl text-red-500 font-bold">No Pokemon found. Check your API connection.</p>
                         </div>
                     )}
                 </ul>

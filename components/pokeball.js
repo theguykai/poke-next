@@ -53,7 +53,7 @@ export default function Pokeball() {
                 setThrowAnimation("animate-spin linear 1s infinite");
                 setTimeout(() => {
                     setDuration("duration-1000");
-                    setThrowAnimation("animate-spin linear 2s infinite pixelate-extreme grayscale duration-1000");
+                    setThrowAnimation("animate-spin linear 1s animate-fade-out infinite pixelate-extreme grayscale duration-1000");
                     setTimeout(() => {
                         setShowPokedex(true);
                         

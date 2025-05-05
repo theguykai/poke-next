@@ -27,3 +27,15 @@ export const savePokemonToCollection = (pokemon) => {
 
     return existingCollection;
 }
+
+export const clearCollection = () => {
+  if (typeof window === 'undefined') return;
+  
+  try {
+    localStorage.removeItem('pokemonCollection');
+    return true;
+  } catch (error) {
+    console.error("Error clearing Pokemon collection:", error);
+    return false;
+  }
+}
