@@ -15,7 +15,7 @@ export default function Home() {
         <footer className="flex flex-col items-center justify-center gap-2">
           <div>
             <p className="text-gray-500 text-sm text-center">Powered by</p>
-            <Link href="https://pokeapi.co/" className="hover:text-yellow-500">PokeAPI v2</Link>
+            <Link href="https://pokeapi.co/"  target="_blank" rel="noopener noreferrer" className="hover:text-yellow-500">PokeAPI v2</Link>
           </div>
           <Link href="https://github.com/theguykai/poke-next/" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faGithub} size="3x" className="h-6 w-6 hover:text-blue-500" />
